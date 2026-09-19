@@ -1,0 +1,185 @@
+/* ==========================================================
+   VERSION C — « AMÉTHYSTE »
+   The most violet: aubergine night for the intro, home and heroes,
+   pale lilac for reading. Accent: a thread of gold.
+   Intro: a mandala of light; click → rays burst, the flower settles into the home.
+   Tabs: a night circle opens from the exact spot you clicked.
+   ========================================================== */
+
+:root {
+  --night: #2B1830;
+  --night-2: #3D2246;
+  --bg: #F3ECF7;
+  --surface: #fff;
+  --tint: #E6D8EE;
+  --strong: #38203E;
+  --ink: #35273A;
+  --soft: #604F66;
+  --accent: #7B4F8C;
+  --accent-2: #94701F;          /* gold, readable on light */
+  --gold: #E2BE7A;              /* gold, on night */
+  --lilac: #DCCBE8;
+  --on-accent: #fff;
+  --line: rgba(56, 32, 62, .15);
+  --radius: 18px;
+  --font-display: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-italic: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Josefin Sans', system-ui, sans-serif;
+  --night-bg: radial-gradient(ellipse at 50% 38%, #4C2B58 0%, #2B1830 58%, #1D1023 100%);
+}
+body { font-size: 1.1rem; line-height: 1.6; }
+h1, h2, h3 { letter-spacing: .04em; font-weight: 500; }
+h2 { font-size: clamp(1.35rem, 2.2vw, 1.7rem); }
+h3 { font-size: 1.02rem; letter-spacing: .08em; }
+
+.ros__ring--outer { --k: 1; }
+.ros__ring--inner { --k: .62; }
+
+/* ---------- Header: night bar, gold capsule ---------- */
+.top { background: var(--night); border-bottom: 1px solid rgba(226, 190, 122, .28); }
+.brand { color: #F4ECF8; }
+.brand__ros { color: var(--gold); }
+.brand__name { letter-spacing: .14em; font-size: 1.05rem; text-transform: uppercase; }
+.nav { background: rgba(255, 255, 255, .06); border: 1px solid rgba(226, 190, 122, .32); }
+.nav__link { color: var(--lilac); font-size: .88rem; letter-spacing: .06em; padding-top: .15em; }
+.nav__link:hover { color: #fff; }
+.nav__link[aria-current="page"] { color: var(--night); font-weight: 500; }
+.nav__ind { background: linear-gradient(135deg, #F0D59C, #D2A656); box-shadow: 0 0 22px rgba(226, 190, 122, .55); }
+.lang { color: var(--lilac); border-color: rgba(220, 203, 232, .45); padding-top: .2em; }
+.lang:hover { color: var(--night); background: var(--gold); border-color: var(--gold); }
+.btn { background: linear-gradient(135deg, #F0D59C, #D2A656); color: var(--night); padding-top: 1rem; box-shadow: 0 14px 34px -14px rgba(226, 190, 122, .7); }
+.btn:hover { box-shadow: 0 0 0 5px rgba(226, 190, 122, .22), 0 18px 40px -14px rgba(226, 190, 122, .9); }
+.fab { background: linear-gradient(135deg, #F0D59C, #D2A656); color: var(--night); }
+
+/* ---------- Intro: only the rosette, a mandala of light ---------- */
+.intro__bg { background: var(--night-bg); }
+.intro__bg::after, .stars { content: ""; position: absolute; inset: 0; background-image:
+  radial-gradient(1.2px 1.2px at 12% 22%, rgba(255,255,255,.8), transparent 60%), radial-gradient(1px 1px at 78% 14%, rgba(255,255,255,.7), transparent 60%),
+  radial-gradient(1.4px 1.4px at 64% 72%, rgba(240,213,156,.9), transparent 60%), radial-gradient(1px 1px at 28% 82%, rgba(255,255,255,.6), transparent 60%),
+  radial-gradient(1.2px 1.2px at 90% 58%, rgba(255,255,255,.7), transparent 60%), radial-gradient(1px 1px at 42% 10%, rgba(240,213,156,.8), transparent 60%),
+  radial-gradient(1px 1px at 6% 60%, rgba(255,255,255,.55), transparent 60%), radial-gradient(1.3px 1.3px at 54% 90%, rgba(255,255,255,.6), transparent 60%);
+  animation: twinkle 5s ease-in-out infinite alternate; }
+.intro__veil { background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(240, 213, 156, .55) 22%, rgba(226, 190, 122, 0) 58%); transform: scale(0); }
+.intro__ros { color: var(--lilac); animation: spin 120s linear infinite; filter: drop-shadow(0 0 10px rgba(220, 203, 232, .35)); }
+.intro .ros__petal { fill: rgba(220, 203, 232, .06); animation: cBloom 1.6s var(--ease-out) both; animation-delay: calc(var(--i) * 80ms + .2s); }
+.intro .ros__ring--inner .ros__petal { stroke: var(--gold); fill: rgba(226, 190, 122, .1); animation-delay: calc(var(--i) * 80ms + .65s); }
+.intro .ros__glow { fill: var(--gold); filter: blur(46px); opacity: .4; transform: scale(.5); animation: cGlow 4s ease-in-out infinite; }
+.intro .ros__seed { fill: #fff; opacity: 1; filter: drop-shadow(0 0 8px #F0D59C); animation: seed 4s ease-in-out infinite; }
+.intro .ros__rays line { stroke: var(--gold); stroke-dasharray: 214; stroke-dashoffset: 214; }
+.intro__btn { transition: transform .7s var(--ease-out); }
+.intro__btn:hover { transform: scale(1.04); }
+.intro__btn:hover .intro__ros { filter: drop-shadow(0 0 22px rgba(240, 213, 156, .75)); }
+
+@keyframes cBloom { from { transform: rotate(var(--r)) scale(0); opacity: 0; } to { transform: rotate(var(--r)) scale(var(--k)); opacity: 1; } }
+@keyframes cGlow { 0%, 100% { transform: scale(.46); opacity: .3; } 50% { transform: scale(.66); opacity: .55; } }
+@keyframes seed { 50% { transform: scale(1.7); } }
+@keyframes twinkle { from { opacity: .45; } to { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* — opening (2.6 s): rays burst, a flash of gold, the flower settles into the home — */
+.intro.is-opening .intro__btn { pointer-events: none; animation: cSettle 2.1s cubic-bezier(.6, 0, .2, 1) forwards; }
+.intro.is-opening .ros__rays line { opacity: 1; animation: cRay 1.3s var(--ease-out) forwards; animation-delay: calc(var(--i) * 28ms); }
+.intro.is-opening .ros__glow { animation: cBurst 1.5s ease-out forwards; }
+.intro.is-opening .intro__veil { animation: cFlash 1.5s ease-out forwards; animation-delay: .35s; }
+.intro.is-opening { animation: fadeOut .65s ease forwards; animation-delay: 1.95s; }
+@keyframes cRay { 0% { stroke-dashoffset: 214; opacity: 1; } 55% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -214; opacity: 0; } }
+@keyframes cBurst { 40% { transform: scale(1.5); opacity: .95; } 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes cFlash { 0% { transform: scale(0); opacity: 0; } 30% { opacity: .6; } 100% { transform: scale(3); opacity: 0; } }
+@keyframes cSettle { 0% { transform: scale(1) rotate(0); } 35% { transform: scale(1.14) rotate(14deg); } 100% { transform: scale(.62) rotate(45deg); } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+/* ---------- Page change: a night circle opens from the click ---------- */
+.fx { display: grid; place-items: center; background: var(--night-bg); clip-path: circle(0 at var(--cx, 50%) var(--cy, 0%)); }
+.fx__ros { width: 130px; height: 130px; color: var(--gold); animation: spin 5s linear infinite; filter: drop-shadow(0 0 14px rgba(226, 190, 122, .6)); }
+body.is-leaving .fx { clip-path: circle(150vmax at var(--cx, 50%) var(--cy, 0%)); transition: clip-path .52s cubic-bezier(.6, 0, .35, 1); }
+body.is-entering .fx { clip-path: circle(150vmax at var(--cx, 50%) var(--cy, 0%)); opacity: 0; transition: opacity .6s ease .08s; }
+body.is-entering main { animation: cEnter .8s var(--ease-out) both .1s; }
+@keyframes cEnter { from { opacity: 0; transform: scale(1.025); } to { opacity: 1; transform: none; } }
+
+/* ---------- Home: night sky, offer | rosette | offer ---------- */
+.page--home { background: var(--night-bg); color: var(--lilac); place-items: center; padding-inline: clamp(18px, 4vw, 44px); padding-bottom: clamp(1rem, 3vh, 2rem); }
+.stars { pointer-events: none; }
+.home { position: relative; z-index: 1; width: 100%; max-width: 1180px; text-align: center; }
+.home .eyebrow { color: var(--gold); }
+.home__name { color: #fff; font-size: clamp(2.4rem, 6.4vw, 4.6rem); letter-spacing: .16em; text-transform: uppercase; font-weight: 400; margin-bottom: .15em; text-shadow: 0 0 40px rgba(220, 203, 232, .35); }
+.home__tagline { font-family: var(--font-italic); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.6rem); color: var(--gold); margin: 0; }
+.orbit { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: clamp(1rem, 3vw, 2.8rem); margin: clamp(.4rem, 2vh, 1.4rem) 0; }
+.home__ros { width: min(40vmin, 360px); height: auto; color: var(--lilac); overflow: visible; filter: drop-shadow(0 0 16px rgba(220, 203, 232, .3)); }
+body.is-ready .home__ros[data-enter] { animation: enterUp .9s var(--ease-out) both .2s, spin 120s linear infinite 1.2s; }
+.home__ros .ros__petal { fill: rgba(220, 203, 232, .06); }
+.home__ros .ros__ring--inner .ros__petal { stroke: var(--gold); fill: rgba(226, 190, 122, .1); }
+.home__ros .ros__glow { fill: var(--gold); filter: blur(46px); opacity: .38; transform: scale(.55); animation: cGlow 4s ease-in-out infinite; }
+.home__ros .ros__seed { fill: #fff; opacity: 1; }
+
+.offer { color: var(--lilac); padding: .4rem 0; }
+.offer--reiki { text-align: right; align-items: flex-end; }
+.offer--ic { text-align: left; align-items: flex-start; }
+.offer::after { content: ""; position: absolute; top: 50%; width: clamp(1rem, 3vw, 2.6rem); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); opacity: .7; transition: width .5s var(--ease-out), opacity .5s; }
+.offer--reiki::after { right: calc(clamp(1rem, 3vw, 2.8rem) * -1); }
+.offer--ic::after { left: calc(clamp(1rem, 3vw, 2.8rem) * -1); transform: scaleX(-1); }
+.offer__n { font-family: var(--font-display); font-size: .8rem; letter-spacing: .3em; color: var(--gold); }
+.offer__kicker { color: var(--lilac); opacity: .85; }
+.offer__title { color: #fff; font-size: clamp(1.25rem, 2.3vw, 1.75rem); letter-spacing: .08em; text-transform: uppercase; transition: color .4s, text-shadow .4s; }
+.offer__text { color: rgba(220, 203, 232, .88); font-size: .98rem; max-width: 26em; }
+.offer__link { color: var(--gold); }
+.offer:hover .offer__title { color: var(--gold); text-shadow: 0 0 26px rgba(226, 190, 122, .5); }
+.home__foot { color: rgba(220, 203, 232, .8); }
+
+@media (max-width: 860px) {
+  .orbit { grid-template-columns: 1fr; gap: .5rem; }
+  .home__ros { order: -1; width: min(34vmin, 170px); margin: 0 auto; }
+  .offer--reiki, .offer--ic { text-align: center; align-items: center; padding: .7rem 0; border-top: 1px solid rgba(226, 190, 122, .25); }
+  .offer::after { display: none; }
+  .offer__text { display: none; }
+  .offer__n { display: none; }
+  .home .eyebrow { font-size: .62rem; margin-bottom: .5rem; }
+  .home__name { font-size: 2.1rem; }
+  .home__tagline { font-size: 1.1rem; }
+  .home__cta { margin-top: .6rem; }
+  .home__foot { font-size: .68rem; margin-top: .6rem; }
+}
+
+/* ---------- Inner pages: night hero with an arch, lilac reading ground ---------- */
+.hero { background: var(--night-bg); color: var(--lilac); border-radius: 0 0 50% 50% / 0 0 70px 70px; padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+.hero .eyebrow { color: var(--gold); }
+.hero__title { color: #fff; font-size: clamp(1.8rem, 5vw, 3.7rem); letter-spacing: .1em; text-transform: uppercase; font-weight: 400; }
+.hero__sub { font-family: var(--font-italic); color: var(--gold); font-size: clamp(1.2rem, 2.2vw, 1.55rem); }
+.hero__ros { left: 50%; top: 58%; width: min(90vmin, 700px); translate: -50% -50%; color: rgba(226, 190, 122, .2); animation: spin 140s linear infinite; }
+.practical li { border: 1px solid rgba(226, 190, 122, .45); color: #F4ECF8; background: rgba(255, 255, 255, .05); padding-top: .5rem; }
+.practical .icon { color: var(--gold); }
+
+.lead { font-family: var(--font-italic); font-size: clamp(1.4rem, 2.5vw, 1.85rem); }
+.panel { background: var(--surface); border: 1px solid var(--tint); box-shadow: 0 30px 60px -44px rgba(56, 32, 62, .55); }
+.panel::before { content: ""; position: absolute; left: 50%; top: -6px; width: 11px; height: 11px; background: linear-gradient(135deg, #F0D59C, #C99A45); transform: translateX(-50%) rotate(45deg); }
+.panel--tint { background: linear-gradient(160deg, #EADCF1, #F6EFF9); border-color: #D9C4E4; }
+.panel__n { letter-spacing: .3em; font-size: .8rem; }
+.panel__sub { font-family: var(--font-italic); font-size: 1.2rem; letter-spacing: 0; }
+.layout--reiki { grid-template-columns: 1fr 1fr; grid-template-areas: "a b" "c c"; }
+.layout--ic    { grid-template-columns: 1fr 1fr; grid-template-areas: "a b"; }
+.panel--a { grid-area: a; } .panel--b { grid-area: b; } .panel--c { grid-area: c; }
+@media (max-width: 860px) { .layout--reiki, .layout--ic { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c"; } }
+.sparks li::before { background: linear-gradient(135deg, #E2BE7A, #B98A38); }
+.layout--reiki .panel--b { display: flex; flex-direction: column; justify-content: center; }
+.layout--reiki .panel--c { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: clamp(1.5rem, 4vw, 3.5rem); }
+.layout--reiki .panel--c > * { grid-column: 2; }
+.layout--reiki .panel--c > .panel__n { grid-column: 1; grid-row: 1; }
+.layout--reiki .panel--c > h2 { grid-column: 1; grid-row: 1 / span 6; align-self: start; margin-top: 2rem; }
+.layout--reiki .panel--c > .badge { justify-self: start; }
+@media (max-width: 860px) { .layout--reiki .panel--c { display: block; } .layout--reiki .panel--c > h2 { margin-top: 0; } }
+
+
+/* a session as a path of light */
+.steps { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; gap: 0; position: relative; }
+.steps::before { content: ""; position: absolute; left: 21px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--gold), var(--accent), var(--gold)); opacity: .6; }
+.step { position: relative; padding: 0 0 2rem 4.2rem; }
+.step:last-child { padding-bottom: 0; }
+.step__n { position: absolute; left: 0; top: -4px; width: 43px; height: 43px; display: grid; place-items: center; margin: 0; padding-top: .2em; border-radius: 50%; background: var(--night); color: var(--gold); font-size: .78rem; letter-spacing: .08em; box-shadow: 0 0 0 5px var(--bg), 0 0 18px rgba(226, 190, 122, .5); }
+.note { background: var(--tint); border-left: 3px solid #C99A45; border-radius: 0 14px 14px 0; }
+
+.cta { background: var(--night-bg); color: var(--lilac); }
+.cta__lead { font-family: var(--font-italic); color: #fff; font-size: clamp(1.45rem, 2.6vw, 1.95rem); }
+.cta__ros { left: 50%; top: 50%; width: 520px; translate: -50% -50%; color: rgba(226, 190, 122, .17); animation: spin 100s linear infinite; }
+
+.about__ros { color: #C99A45; opacity: .75; animation: spin 120s linear infinite; }
+.about__ros .ros__ring--outer .ros__petal { stroke: var(--accent); }
+.about__fig img { border: 5px solid #fff; box-shadow: 0 0 0 1.5px #C99A45, 0 30px 50px -30px rgba(56, 32, 62, .7); }

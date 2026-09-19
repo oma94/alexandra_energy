@@ -1,0 +1,156 @@
+/* ==========================================================
+   VERSION A — « AURA »
+   Lilac ground, drifting auras, frosted glass. Accent: rose poudré.
+   Intro: you pass *through* the flower.
+   Tabs: a plum pill glides to the tab you click.
+   ========================================================== */
+
+:root {
+  --bg: #EFE6F3;
+  --surface: rgba(255, 255, 255, .62);
+  --tint: #E3D3EA;
+  --strong: #4A2F4B;
+  --ink: #3B2E3D;
+  --soft: #65526A;
+  --accent: #7D5C86;
+  --accent-2: #C4776F;          /* rose poudré */
+  --rose-soft: #F3CFC8;
+  --on-accent: #fff;
+  --line: rgba(74, 47, 75, .14);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', system-ui, sans-serif;
+  --glass-border: 1px solid rgba(255, 255, 255, .75);
+  --glass-shadow: 0 24px 50px -30px rgba(74, 47, 75, .45);
+}
+
+.ros__ring--outer { --k: 1; }
+.ros__ring--inner { --k: .62; }
+
+/* ---------- Auras (tint shifts with the current tab) ---------- */
+.aura { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.aura i { position: absolute; width: 62vmax; height: 62vmax; border-radius: 50%; filter: blur(90px); opacity: .6; transition: background-color 1.4s ease; will-change: transform; }
+.aura i:nth-child(1) { left: -18vmax; top: -24vmax; background: #C9AEDA; animation: driftA 28s ease-in-out infinite alternate; }
+.aura i:nth-child(2) { right: -22vmax; top: 6vmax;  background: #F1C6BE; animation: driftB 34s ease-in-out infinite alternate; }
+.aura i:nth-child(3) { left: 18vmax; bottom: -34vmax; background: #A98BB8; animation: driftA 40s ease-in-out infinite alternate-reverse; }
+body[data-page="reiki"] .aura i:nth-child(1) { background: #B291CB; }
+body[data-page="reiki"] .aura i:nth-child(2) { background: #DDBDEA; }
+body[data-page="intuitive-communication"] .aura i:nth-child(1) { background: #F2C3CB; }
+body[data-page="intuitive-communication"] .aura i:nth-child(2) { background: #E7B5CB; }
+body[data-page="about"] .aura i:nth-child(2) { background: #EDCDB9; }
+body[data-page="about"] .aura i:nth-child(3) { background: #8E6A9C; }
+@keyframes driftA { to { transform: translate(9vmax, 6vmax) scale(1.12); } }
+@keyframes driftB { to { transform: translate(-8vmax, 9vmax) scale(.92); } }
+
+/* ---------- Header ---------- */
+.top::before { content: ""; position: absolute; inset: 0 0 -48px 0; z-index: -1; background: linear-gradient(rgba(239, 230, 243, .9), rgba(239, 230, 243, .55) 55%, rgba(239, 230, 243, 0)); pointer-events: none; }
+.brand__ros { color: var(--accent); }
+.nav { background: rgba(255, 255, 255, .55); border: var(--glass-border); box-shadow: var(--glass-shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.nav__ind { background: var(--strong); box-shadow: 0 8px 18px -8px rgba(74, 47, 75, .7); }
+.nav__link:hover { color: var(--accent); }
+.nav__link[aria-current="page"], .nav__link[aria-current="page"]:hover { color: #fff; }
+.lang { background: rgba(255, 255, 255, .5); border-color: rgba(255, 255, 255, .8); }
+.lang:hover { background: #fff; border-color: var(--accent); }
+.btn { box-shadow: 0 16px 30px -16px rgba(74, 47, 75, .8); }
+.btn:hover { background: var(--accent); box-shadow: 0 22px 36px -16px rgba(74, 47, 75, .8); }
+
+/* ---------- Intro: only the rosette ---------- */
+.intro__bg { background: radial-gradient(circle at 50% 46%, #F8F2FA 0%, #E2D0EA 48%, #BFA1CC 100%); }
+.intro__veil { background: var(--bg); }
+.intro__ros { color: var(--strong); animation: spin 90s linear infinite; }
+.intro .ros__petal { fill: rgba(255, 255, 255, .34); stroke-width: 1.3; animation: aBloom 1.5s var(--ease-out) both; animation-delay: calc(var(--i) * 70ms + .15s); }
+.intro .ros__ring--inner .ros__petal { fill: rgba(243, 207, 200, .55); stroke: var(--accent-2); animation-delay: calc(var(--i) * 70ms + .5s); }
+.intro .ros__seed { fill: var(--accent-2); opacity: 1; animation: seed 3.4s ease-in-out infinite; }
+.intro .ros__glow { fill: #fff; opacity: .55; filter: blur(34px); transform: scale(.55); animation: glow 3.4s ease-in-out infinite; }
+.intro__btn:hover .intro__ros { filter: drop-shadow(0 0 22px rgba(255, 255, 255, .9)); }
+.intro__btn { transition: transform .6s var(--ease-out); }
+.intro__btn:hover { transform: scale(1.03); }
+
+@keyframes aBloom { from { transform: rotate(calc(var(--r) - 50deg)) scale(0); opacity: 0; } to { transform: rotate(var(--r)) scale(var(--k)); opacity: 1; } }
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes seed  { 50% { transform: scale(1.5); } }
+@keyframes glow  { 0%, 100% { transform: scale(.5); opacity: .45; } 50% { transform: scale(.68); opacity: .7; } }
+
+/* — opening (2.4 s): the petals swing open and you pass through — */
+.intro.is-opening .intro__btn { pointer-events: none; transform: none; }
+.intro.is-opening .ros__petal { animation: aOpen 2s cubic-bezier(.55, 0, .3, 1) forwards; animation-delay: calc(var(--i) * 45ms); }
+.intro.is-opening .ros__ring--inner .ros__petal { animation-delay: calc(var(--i) * 45ms + .22s); }
+.intro.is-opening .ros__glow { animation: aFlash 2s ease-out forwards; }
+.intro.is-opening .ros__seed { animation: none; opacity: 0; transition: opacity .3s; }
+.intro.is-opening .intro__veil { animation: fadeIn .7s ease forwards; animation-delay: 1.25s; }
+.intro.is-opening { animation: fadeOut .5s ease forwards; animation-delay: 1.9s; }
+@keyframes aOpen  { to { transform: rotate(calc(var(--r) + 80deg)) scale(calc(var(--k) * 9)); opacity: 0; } }
+@keyframes aFlash { 30% { transform: scale(1.4); opacity: .95; } 100% { transform: scale(5); opacity: 0; } }
+@keyframes fadeIn  { to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+/* ---------- Page change: soft blur-through ---------- */
+main { transition: opacity .28s ease, transform .28s ease, filter .28s ease; }
+body.is-leaving main { opacity: 0; transform: translateY(-12px) scale(.992); filter: blur(8px); }
+body.is-entering main { animation: aEnter .9s var(--ease-out) both; }
+@keyframes aEnter { from { opacity: 0; transform: translateY(18px) scale(1.006); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+
+/* ---------- Home ---------- */
+.page--home { place-items: center; padding-inline: clamp(18px, 4vw, 44px); padding-bottom: clamp(1rem, 3vh, 2rem); }
+.home__ros { position: absolute; left: 50%; top: 46%; width: min(118vmin, 980px); height: auto; translate: -50% -50%; color: rgba(125, 92, 134, .2); overflow: visible; animation: spin 140s linear infinite; pointer-events: none; }
+.home__ros .ros__ring--inner .ros__petal { stroke: rgba(196, 119, 111, .3); }
+.home { position: relative; z-index: 1; width: 100%; max-width: 940px; text-align: center; }
+.home__name { font-size: clamp(3.2rem, 8.5vw, 5.8rem); margin-bottom: .05em; letter-spacing: -.01em; }
+.home__tagline { font-family: var(--font-display); font-style: italic; font-size: clamp(1.25rem, 2.6vw, 1.75rem); color: var(--accent); margin-bottom: 1rem; }
+.home__lead { max-width: 34em; margin: 0 auto clamp(1.4rem, 3.5vh, 2.4rem); }
+.offers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.9rem, 2.2vw, 1.5rem); text-align: left; }
+.offer { padding: clamp(1.1rem, 2.4vw, 1.7rem) clamp(1.2rem, 2.6vw, 1.9rem); background: var(--surface); border: var(--glass-border); border-radius: var(--radius); box-shadow: var(--glass-shadow); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow: hidden; transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out), background .45s; }
+.offer::before { content: ""; position: absolute; right: -30%; top: -60%; width: 80%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(201, 174, 218, .75), transparent 65%); transition: transform .7s var(--ease-out), opacity .5s; opacity: .55; }
+.offer--ic::before { background: radial-gradient(circle, rgba(243, 195, 190, .85), transparent 65%); }
+.offer > * { position: relative; }
+.offer__n { display: none; }
+.offer:hover { transform: translateY(-5px); background: rgba(255, 255, 255, .82); box-shadow: 0 34px 60px -32px rgba(74, 47, 75, .6); }
+.offer:hover::before { transform: scale(1.5); opacity: .9; }
+.home__cta { margin-top: clamp(1.3rem, 3.2vh, 2.2rem); }
+
+@media (max-width: 640px) {
+  .home .eyebrow { font-size: .62rem; margin-bottom: .5rem; }
+  .home__name { font-size: 2.9rem; }
+  .home__tagline { font-size: 1.15rem; margin-bottom: .6rem; }
+  .home__lead { font-size: .94rem; line-height: 1.5; margin-bottom: 1rem; }
+  .offers { grid-template-columns: 1fr; gap: .7rem; }
+  .offer { padding: .9rem 1.1rem; gap: .12rem; }
+  .offer__title { font-size: 1.45rem; }
+  .offer__text { font-size: .86rem; line-height: 1.42; }
+  .offer__link { margin-top: .25rem; font-size: .74rem; }
+  .home__cta { margin-top: 1rem; }
+  .home__foot { margin-top: .55rem; font-size: .68rem; }
+}
+
+/* ---------- Inner pages: glass bento ---------- */
+.hero__ros { left: 50%; top: 58%; width: min(96vmin, 760px); translate: -50% -50%; color: rgba(125, 92, 134, .2); animation: spin 120s linear infinite; }
+.practical li { background: var(--surface); border: var(--glass-border); box-shadow: var(--glass-shadow); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.practical .icon { color: var(--accent-2); }
+
+.panel { background: var(--surface); border: var(--glass-border); box-shadow: var(--glass-shadow); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.panel--tint { background: linear-gradient(150deg, rgba(227, 211, 234, .92), rgba(243, 207, 200, .8)); }
+.layout--reiki { grid-template-columns: 1fr 1fr; grid-template-areas: "a b" "c c"; }
+.layout--ic    { grid-template-columns: 7fr 5fr; grid-template-areas: "a b"; align-items: start; }
+.panel--a { grid-area: a; } .panel--b { grid-area: b; } .panel--c { grid-area: c; }
+@media (max-width: 860px) { .layout--reiki, .layout--ic { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c"; } }
+.layout--reiki .panel--b { display: flex; flex-direction: column; justify-content: center; }
+.layout--reiki .panel--c { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: clamp(1.5rem, 4vw, 3.5rem); }
+.layout--reiki .panel--c > * { grid-column: 2; }
+.layout--reiki .panel--c > .panel__n { grid-column: 1; grid-row: 1; }
+.layout--reiki .panel--c > h2 { grid-column: 1; grid-row: 1 / span 6; align-self: start; margin-top: 2rem; }
+.layout--reiki .panel--c > .badge { justify-self: start; }
+@media (max-width: 860px) { .layout--reiki .panel--c { display: block; } .layout--reiki .panel--c > h2 { margin-top: 0; } }
+
+.step { padding: 1.4rem 1.5rem; background: var(--surface); border: var(--glass-border); border-radius: var(--radius); box-shadow: var(--glass-shadow); transition: transform .45s var(--ease-out), opacity .8s var(--ease-out); }
+.step.is-in:hover { transform: translateY(-4px); }
+.note { background: rgba(243, 207, 200, .55); border: 1px solid rgba(196, 119, 111, .35); }
+
+.cta { color: #fff; background: linear-gradient(135deg, #7D5C86 0%, #4A2F4B 70%); box-shadow: 0 40px 70px -40px rgba(74, 47, 75, .9); }
+.cta__lead { color: #fff; }
+.cta__ros { right: -90px; top: 50%; width: 360px; translate: 0 -50%; color: rgba(255, 255, 255, .22); animation: spin 80s linear infinite; }
+.cta .btn { background: #fff; color: var(--strong); }
+.cta .btn:hover { background: var(--rose-soft); }
+
+.about__ros { color: var(--accent); opacity: .55; animation: spin 100s linear infinite; }
+.about__ros .ros__ring--inner .ros__petal { stroke: var(--accent-2); }
+.about__fig img { border: 6px solid rgba(255, 255, 255, .85); box-shadow: var(--glass-shadow); }
+.fab:hover { background: var(--accent); }

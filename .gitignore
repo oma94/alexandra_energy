@@ -1,0 +1,21 @@
+# Le repo ne contient que le site (index.html, a/, c/, shared/).
+# Tout le reste est de l'outillage ou de la matière de travail, gardé en local.
+
+# Outillage Claude Code
+.claude/
+.remember/
+AGENTS.md
+CLAUDE.md
+
+# Matière de travail (briefs, flyers d'origine fournis par la cliente)
+docs/
+contenu/
+
+# macOS / éditeurs
+.DS_Store
+.vscode/
+.idea/
+
+# environment variables
+.env
+.env.*

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alexandra — 2 versions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #3B2E3D; --strong: #4A2F4B; --soft: #65526A; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font: 300 1.05rem/1.6 'Jost', system-ui, sans-serif; color: var(--ink); background: #F1E9F4; padding: clamp(2rem, 6vw, 5rem) clamp(16px, 4vw, 48px); }
+    header { max-width: 1180px; margin: 0 auto 2.5rem; }
+    h1 { font: 500 clamp(2.2rem, 5vw, 3.4rem)/1.1 'Cormorant Garamond', serif; color: var(--strong); margin: 0 0 .4rem; }
+    header p { margin: 0; color: var(--soft); max-width: 46em; }
+    .grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    a.card { display: flex; flex-direction: column; text-decoration: none; color: inherit; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 30px 60px -40px rgba(74, 47, 75, .6); transition: transform .4s cubic-bezier(.16, 1, .3, 1), box-shadow .4s; }
+    a.card:hover { transform: translateY(-6px); box-shadow: 0 40px 70px -38px rgba(74, 47, 75, .75); }
+    a.card:focus-visible { outline: 3px solid #C4776F; outline-offset: 4px; }
+    .swatch { height: 190px; display: grid; place-items: center; position: relative; }
+    .swatch svg { width: 130px; height: 130px; overflow: visible; }
+    .a .swatch { background: radial-gradient(circle at 30% 20%, #C9AEDA, transparent 60%), radial-gradient(circle at 80% 70%, #F1C6BE, transparent 60%), #EFE6F3; color: #4A2F4B; }
+    .c .swatch { background: radial-gradient(ellipse at 50% 40%, #4C2B58, #2B1830 60%, #1D1023); color: #E2BE7A; }
+    .body { padding: 1.5rem 1.6rem 1.7rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+    .k { font-size: .7rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #7D5C86; }
+    h2 { font: 500 1.9rem/1.1 'Cormorant Garamond', serif; color: var(--strong); margin: 0; }
+    .body p { margin: 0; font-size: .96rem; }
+    dl { margin: .6rem 0 0; font-size: .88rem; display: grid; grid-template-columns: auto 1fr; gap: .3rem .8rem; color: var(--soft); }
+    dt { font-weight: 500; color: var(--strong); }
+    dd { margin: 0; }
+    .dots { display: flex; gap: .4rem; margin-top: auto; padding-top: 1rem; }
+    .dots i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .08); }
+    footer { max-width: 1180px; margin: 2.5rem auto 0; font-size: .9rem; color: var(--soft); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Deux versions pour Alexandra</h1>
+    <p>Même contenu, même moteur (4 onglets centrés en haut, EN par défaut + FR, WhatsApp), deux partis pris. Dans chacune : la première page n'est que la rosace, l'intro rejoue à chaque rechargement, et chaque changement d'onglet a sa transition.</p>
+  </header>
+
+  <main class="grid">
+    <a class="card a" href="a/index.html">
+      <div class="swatch"><svg viewBox="-220 -220 440 440" fill="none" stroke="currentColor" stroke-width="5"><g id="r"><path d="M0 0C46-58 46-142 0-196-46-142-46-58 0 0Z"/><path d="M0 0C46-58 46-142 0-196-46-142-46-58 0 0Z" transform="rotate(45)"/><path d="M0 0C46-58 46-142 0-196-46-142-46-58 0 0Z" transform="rotate(90)"/><path d="M0 0C46-58 46-142 0-196-46-142-46-58 0 0Z" transform="rotate(135)"/></g><use href="#r" transform="rotate(180)"/></svg></div>
+      <div class="body">
+        <span class="k">Version A</span>
+        <h2>Aura</h2>
+        <p>Douce et lumineuse. Fond lilas, auras qui dérivent lentement, cartes en verre dépoli.</p>
+        <dl>
+          <dt>Accent</dt><dd>rose poudré</dd>
+          <dt>Intro</dt><dd>on traverse la fleur</dd>
+          <dt>Onglets</dt><dd>une pastille prune glisse vers l'onglet cliqué, la teinte du fond change selon la page</dd>
+          <dt>Typo</dt><dd>Cormorant Garamond + Jost</dd>
+        </dl>
+        <div class="dots"><i style="background:#EFE6F3"></i><i style="background:#C9AEDA"></i><i style="background:#7D5C86"></i><i style="background:#4A2F4B"></i><i style="background:#C4776F"></i></div>
+      </div>
+    </a>
+
+
+    <a class="card c" href="c/index.html">
+      <div class="swatch"><svg viewBox="-220 -220 440 440" fill="none" stroke="currentColor" stroke-width="5"><use href="#r"/><use href="#r" transform="rotate(180)"/></svg></div>
+      <div class="body">
+        <span class="k">Version C</span>
+        <h2>Améthyste</h2>
+        <p>La plus violette. Nuit aubergine pour l'intro, la home et les en-têtes ; lilas très clair pour la lecture.</p>
+        <dl>
+          <dt>Accent</dt><dd>un fil d'or</dd>
+          <dt>Intro</dt><dd>mandala de lumière, les rayons jaillissent, la fleur se pose dans la home</dd>
+          <dt>Onglets</dt><dd>un cercle de nuit s'ouvre depuis l'endroit exact du clic</dd>
+          <dt>Typo</dt><dd>Cinzel + Cormorant + Josefin Sans</dd>
+        </dl>
+        <div class="dots"><i style="background:#F3ECF7"></i><i style="background:#DCCBE8"></i><i style="background:#7B4F8C"></i><i style="background:#2B1830"></i><i style="background:#E2BE7A"></i></div>
+      </div>
+    </a>
+  </main>
+
+  <footer>
+    <p>Pour rejouer une intro, recharge simplement la page.</p>
+  </footer>
+</body>
+</html>
