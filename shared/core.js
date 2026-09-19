@@ -4,7 +4,8 @@
    - handles EN/FR, WhatsApp links, the 4-tab routing
    - toggles state classes that the version's CSS animates:
        body.has-intro            intro on screen (replays on every reload)
-       #intro.is-opening         after the click, for data-intro-ms
+       #intro.is-opening         opens by itself after data-intro-hold-ms (the bloom),
+                                 or at once on click; lasts data-intro-ms
        body.is-ready             site revealed → home entrance plays
        body.is-leaving / .is-entering   page change, for data-leave-ms / data-enter-ms
        body[data-page="reiki"]   current tab (per-page tint)
@@ -24,6 +25,7 @@
   const root = document.documentElement;
   const num = (k, d) => parseInt(body.dataset[k] || d, 10);
   const INTRO_MS = num('introMs', 2500);
+  const INTRO_HOLD_MS = num('introHoldMs', 2000);
   const LEAVE_MS = num('leaveMs', 350);
   const ENTER_MS = num('enterMs', 700);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -211,6 +213,7 @@
     body.classList.add('has-intro');
     introBtn.addEventListener('click', openIntro);
     intro.addEventListener('click', e => { if (e.target === intro) openIntro(); });
+    setTimeout(openIntro, reduceMotion ? 0 : INTRO_HOLD_MS);
   } else {
     body.classList.add('is-ready');
   }
